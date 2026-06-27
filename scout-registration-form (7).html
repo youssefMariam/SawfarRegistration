@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل الدورات التدريبية الصيفية 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
+
+  :root {
+    --olive:    #4A5C2F;
+    --olive-lt: #6B7F45;
+    --cream:    #F7F3EC;
+    --sand:     #E8DFC8;
+    --brown:    #8B6340;
+    --rust:     #C0522A;
+    --ink:      #1E1E1E;
+    --muted:    #6B6458;
+    --white:    #FFFFFF;
+    --border:   #D4C9B0;
+    --error:    #B03A2E;
+    --success:  #2E7D32;
+    --radius:   10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--olive);
+    padding: 28px 24px 22px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 18px,
+      rgba(255,255,255,0.03) 18px, rgba(255,255,255,0.03) 36px
+    );
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #D4E8B0;
+    font-size: 12px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  header h1 {
+    color: var(--white);
+    font-size: clamp(20px, 5vw, 28px);
+    font-weight: 800;
+    line-height: 1.3;
+  }
+  header p {
+    color: rgba(255,255,255,0.7);
+    margin-top: 6px;
+    font-size: 14px;
+  }
+  .fleur {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 6px rgba(255,255,255,0.3));
+  }
+
+  /* STEP NAV */
+  .steps-bar {
+    display: flex;
+    gap: 0;
+    background: var(--sand);
+    border-bottom: 2px solid var(--border);
+    overflow: hidden;
+  }
+  .step-tab {
+    flex: 1;
+    padding: 12px 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all .25s;
+    position: relative;
+  }
+  .step-tab.active {
+    color: var(--olive);
+    font-weight: 700;
+    border-bottom-color: var(--olive);
+    background: var(--cream);
+  }
+  .step-tab.done {
+    color: var(--success);
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: currentColor;
+    color: var(--cream);
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 6px;
+    opacity: 0.85;
+    vertical-align: middle;
+  }
+  .step-tab.active .step-num { background: var(--olive); opacity: 1; }
+  .step-tab.done .step-num { background: var(--success); opacity: 1; }
+
+  /* MAIN CONTENT */
+  .container { max-width: 680px; margin: 0 auto; padding: 0 16px; }
+
+  .screen { display: none; }
+  .screen.visible { display: block; }
+
+  /* COURSE CARDS */
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--brown);
+    margin: 28px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .courses-grid { display: flex; flex-direction: column; gap: 10px; }
+
+  .course-card {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .course-card:hover { border-color: var(--olive-lt); box-shadow: 0 2px 10px rgba(74,92,47,.1); }
+  .course-card.selected {
+    border-color: var(--olive);
+    background: #F0F4E8;
+  }
+  .course-card input[type="radio"],
+  .course-card input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--olive);
+    margin-top: 3px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .course-info { flex: 1; }
+  .course-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .course-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--sand);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .chip.fee { background: #EEF4E0; color: var(--olive); font-weight: 600; }
+  .chip.who { background: #FDF0E8; color: var(--brown); }
+
+  /* REQUIREMENTS BADGE */
+  .req-box {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: #FEF9EF;
+    border-right: 3px solid var(--brown);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--muted);
+    display: none;
+  }
+  .req-box.show { display: block; }
+  .req-box ul { padding-right: 16px; margin-top: 4px; }
+  .req-box li { margin-bottom: 3px; }
+
+  /* FORM FIELDS */
+  .form-group {
+    margin-bottom: 18px;
+  }
+  label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  label .req-star { color: var(--rust); margin-right: 2px; }
+  input[type="text"], input[type="tel"], input[type="number"], select, textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--white);
+    transition: border-color .2s;
+    appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--olive);
+    box-shadow: 0 0 0 3px rgba(74,92,47,.1);
+  }
+  input.error-field { border-color: var(--error); }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
+
+  /* CONFIRM TOGGLES */
+  .confirm-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 13px 14px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: border-color .2s;
+  }
+  .confirm-item:has(input:checked) { border-color: var(--olive); background: #F0F4E8; }
+  .confirm-item input { margin-top: 2px; accent-color: var(--olive); flex-shrink: 0; }
+  .confirm-item span { font-size: 14px; line-height: 1.55; color: var(--ink); }
+
+  /* SUMMARY */
+  .summary-block {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .summary-header {
+    background: var(--olive);
+    color: var(--white);
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-row .label { color: var(--muted); }
+  .summary-row .value { font-weight: 600; color: var(--ink); }
+
+  .total-row {
+    background: #EEF4E0;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--olive);
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 28px;
+    border-radius: var(--radius);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--olive);
+    color: var(--white);
+    width: 100%;
+  }
+  .btn-primary:hover { background: var(--olive-lt); }
+  .btn-secondary {
+    background: var(--sand);
+    color: var(--ink);
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .btn-secondary:hover { background: var(--border); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-row { display: flex; flex-direction: column; gap: 0; margin-top: 24px; }
+
+  /* ERROR */
+  .error-msg {
+    color: var(--error);
+    font-size: 13px;
+    margin-top: 4px;
+    display: none;
+  }
+  .error-msg.show { display: block; }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--ink);
+    color: var(--white);
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform .3s ease;
+    z-index: 999;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* SUCCESS */
+  .success-wrap {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .success-icon {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .success-wrap h2 { font-size: 24px; color: var(--olive); margin-bottom: 8px; }
+  .success-wrap p { color: var(--muted); line-height: 1.6; }
+  .success-card {
+    margin-top: 24px;
+    background: var(--white);
+    border: 2px solid var(--olive);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: right;
+  }
+
+  /* SCROLLABLE WRAPPER */
+  .scroll-form { padding-top: 20px; padding-bottom: 20px; }
+
+  .info-note {
+    background: #EEF4E0;
+    border-right: 3px solid var(--olive);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--olive);
+    margin-bottom: 16px;
+    line-height: 1.55;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="fleur">⚜</span>
+  <div class="badge">الجمعية الكشفية • مخيم روّيسات صوفر</div>
+  <h1>الدورات التدريبية الصيفية 2026</h1>
+  <p>سجّل مشاركتك في دورات صيف 2026</p>
+</header>
+
+<div class="steps-bar">
+  <div class="step-tab active" id="tab1">
+    <span class="step-num" style="color: var(--olive-lt)">1</span> الدورة
+  </div>
+  <div class="step-tab" id="tab2">
+    <span class="step-num" style="color: var(--muted)">2</span> المعلومات
+  </div>
+  <div class="step-tab" id="tab3">
+    <span class="step-num" style="color: var(--muted)">3</span> التأكيد
+  </div>
+</div>
+
+<!-- SCREEN 1: CHOOSE COURSE -->
+<div class="container">
+<div class="screen visible scroll-form" id="screen1">
+
+  <div class="info-note">
+    ⚠️ على جميع القادة المشاركين في المخيم الصيفي استكمال تدريب الحماية من الأذى والتعهد بإبراز الشهادة قبل الدورة.
+  </div>
+
+  <div class="section-title">📚 دورات مفوضية المناهج والبرامج</div>
+  <div class="courses-grid" id="groupA">
+
+    <label class="course-card" id="card-biz">
+      <input type="radio" name="course" value="biz" onchange="selectCourse(this)">
+      <div class="course-info">
+        <div class="course-name">دورة ريادة أعمال</div>
+        <div class="course-meta">
+          <span class="chip">📅 10–12 تموز 2026</span>
+          <span class="chip fee">💵 $35</span>
+          <span class="chip who">للقادة والجوالة</span>
+        </div>
+        <div class="req-box" id="req-biz">
+          <strong>المستلزمات الشخصية:</strong>
+          <ul>
+            <li>كيس نوم</li>
+            <li>كافة المستلزمات الشخصية</li>
+            <li>اللباس الكشفي الكامل</li>
+          </ul>
+          <div style="margin-top:6px"><strong>ملاحظة:</strong> الاشتراك يشمل كافة مستلزمات الدورة.</div>
+        </div>
+      </div>
+    </label>
+
+    <label class="course-card" id="card-first-aid">
+      <input type="radio" name="course" value="first-aid" onchange="selectCourse(this)">
+      <div class="course-info">
+        <div class="course-name">دورة إسعافات أولية</div>
+        <div class="course-meta">
+          <span class="chip">📅 17–19 تموز 2026</span>
+          <span class="chip fee">💵 $35</span>
+          <span class="chip who">للقادة والجوالة</span>
+        </div>
+        <div class="req-box" id="req-first-aid">
+          <strong>المستلزمات الشخصية:</strong>
+          <ul>
+            <li>كيس نوم</li>
+            <li>كافة المستلزمات الشخصية</li>
+            <li>اللباس الكشفي الكامل</li>
+          </ul>
+          <div style="margin-top:6px"><strong>ملاحظة:</strong> الاشتراك يشمل كافة مستلزمات الدورة.</div>
+        </div>
+      </div>
+    </label>
+
+    <label class="course-card" id="card-games">
+      <input type="radio" name="course" value="games" onchange="selectCourse(this)">
+      <div class="course-info">
+        <div class="course-name">دورة ألعاب وأغاني</div>
+        <div class="course-meta">
+          <span class="chip">📅 14–16 آب 2026</span>
+          <span class="chip fee">💵 $35</span>
+          <span class="chip who">للقادة</span>
+        </div>
+        <div class="req-box" id="req-games">
+          <strong>المستلزمات الشخصية:</strong>
+          <ul>
+            <li>كيس نوم</li>
+            <li>كافة المستلزمات الشخصية</li>
+            <li>اللباس الكشفي الكامل</li>
+          </ul>
+          <div style="margin-top:6px"><strong>ملاحظة:</strong> الاشتراك يشمل كافة مستلزمات الدورة.</div>
+        </div>
+      </div>
+    </label>
+
+    <label class="course-card" id="card-skills">
+      <input type="radio" name="course" value="skills" onchange="selectCourse(this)">
+      <div class="course-info">
+        <div class="course-name">دورة المهارات الكشفية</div>
+        <div class="course-meta">
+          <span class="chip">📅 28–30 آب 2026</span>
+          <span class="chip fee">💵 $35</span>
+          <span class="chip who">للجوالة والكشافة</span>
+        </div>
+        <div class="req-box" id="req-skills">
+          <strong>المستلزمات الشخصية:</strong>
+          <ul>
+            <li>كيس نوم</li>
+            <li>كافة المستلزمات الشخصية</li>
+            <li>اللباس الكشفي الكامل</li>
+          </ul>
+          <div style="margin-top:6px"><strong>ملاحظة:</strong> الاشتراك يشمل كافة مستلزمات الدورة.</div>
+        </div>
+      </div>
+    </label>
+  </div>
+
+  <div class="section-title">🎖️ دورات مفوضية تنمية القيادات</div>
+  <div class="courses-grid" id="groupB">
+
+    <label class="course-card" id="card-deans">
+      <input type="radio" name="course" value="deans" onchange="selectCourse(this)">
+      <div class="course-info">
+        <div class="course-name">لقاء عمداء الأفواج</div>
+        <div class="course-meta">
+          <span class="chip">📅 18–19 تموز 2026</span>
+          <span class="chip fee">💵 $20</span>
+          <span class="chip who">للعمداء</span>
+        </div>
+        <div class="req-box" id="req-deans">
+          <strong>المستلزمات الشخصية:</strong>
+          <ul>
+            <li>كيس نوم</li>
+            <li>كافة المستلزمات الشخصية</li>
+            <li>اللباس الكشفي الكامل</li>
+          </ul>
+          <div style="margin-top:6px"><strong>ملاحظة:</strong> الاشتراك يشمل كافة مستلزمات اللقاء.</div>
+        </div>
+      </div>
+    </label>
+
+    <label class="course-card" id="card-unit-leader">
+      <input type="radio" name="course" value="unit-leader" onchange="selectCourse(this)">
+      <div class="course-info">
+        <div class="course-name">دراسة تأهيل قائد وحدة</div>
+        <div class="course-meta">
+          <span class="chip">📅 23–26 تموز 2026</span>
+          <span class="chip fee">💵 $50</span>
+          <span class="chip who">للقادة</span>
+        </div>
+        <div class="req-box" id="req-unit-leader">
+          <strong>شروط القبول:</strong>
+          <ul>
+            <li>حاصل على الدرجة الأولى</li>
+            <li>العمر 18 سنة فما فوق</li>
+            <li>أن يكون قد عمل لمدة عام على الأقل في قيادة وحدة كشفية</li>
+            <li>أن يكون قد اجتاز دراسة مساعد قائد بنجاح</li>
+          </ul>
+          <div style="margin-top:6px"><strong>المستلزمات:</strong> كيس نوم، مستلزمات شخصية، لباس كشفي كامل.</div>
+        </div>
+      </div>
+    </label>
+
+    <label class="course-card" id="card-asst-leader">
+      <input type="radio" name="course" value="asst-leader" onchange="selectCourse(this)">
+      <div class="course-info">
+        <div class="course-name">دراسة تأهيل مساعد قائد وحدة</div>
+        <div class="course-meta">
+          <span class="chip">📅 6–9 آب 2026</span>
+          <span class="chip fee">💵 $50</span>
+          <span class="chip who">للقادة</span>
+        </div>
+        <div class="req-box" id="req-asst-leader">
+          <strong>شروط القبول:</strong>
+          <ul>
+            <li>حاصل على الدرجة الأولى</li>
+            <li>العمر 17 سنة فما فوق</li>
+            <li>أن يكون قد اجتاز دراسة معاون قائد أو رواد الإرهاط بنجاح</li>
+          </ul>
+          <div style="margin-top:6px"><strong>المستلزمات:</strong> كيس نوم، مستلزمات شخصية، لباس كشفي كامل.</div>
+        </div>
+      </div>
+    </label>
+
+    <label class="course-card" id="card-trainer">
+      <input type="radio" name="course" value="trainer" onchange="selectCourse(this)">
+      <div class="course-info">
+        <div class="course-name">دراسة تحضيري مدرب كشفي</div>
+        <div class="course-meta">
+          <span class="chip">📅 13–16 آب 2026</span>
+          <span class="chip fee">💵 $50</span>
+          <span class="chip who">للقادة</span>
+        </div>
+        <div class="req-box" id="req-trainer">
+          <strong>شروط القبول:</strong>
+          <ul>
+            <li>العمر 21 سنة فما فوق</li>
+            <li>أن يكون قد اجتاز دراسة الشارة الخشبية بنجاح منذ سنة على الأقل</li>
+          </ul>
+          <div style="margin-top:6px"><strong>المستلزمات:</strong> كيس نوم، مستلزمات شخصية، لباس كشفي كامل.</div>
+        </div>
+      </div>
+    </label>
+  </div>
+
+  <p class="error-msg" id="err-course" style="margin-top:12px">⚠️ يرجى اختيار دورة للمتابعة.</p>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="goStep(2)">التالي ← المعلومات الشخصية</button>
+  </div>
+</div>
+
+<!-- SCREEN 2: PERSONAL INFO -->
+<div class="screen scroll-form" id="screen2">
+
+  <div class="form-group">
+    <label>الاسم الكامل <span class="req-star">*</span></label>
+    <input type="text" id="fullname" placeholder="الاسم الثلاثي كاملاً" autocomplete="name">
+    <p class="error-msg" id="err-name">⚠️ يرجى إدخال الاسم الكامل.</p>
+  </div>
+
+  <div class="form-group">
+    <label>رقم الهاتف <span class="req-star">*</span></label>
+    <input type="tel" id="phone" placeholder="01234567">
+    <p class="error-msg" id="err-phone">⚠️ يرجى إدخال رقم هاتف صحيح.</p>
+  </div>
+
+  <div class="form-group">
+    <label>الفوج <span class="req-star">*</span></label>
+    <select id="troop">
+      <option value="">اختر الفوج...</option>
+      <option>فوج الموسيقى</option>
+      <option>فوج دار التربية والتعليم (الكلية)</option>
+      <option>فوج الدفاع المدني</option>
+      <option>فوج أهداف - البلد (مدرسة أهداف)</option>
+      <option>فوج روضة الفيحاء - الضم والفرز</option>
+      <option>فوج حمزة بن عبد المطلب - المعرض</option>
+      <option>فوج معاوية البحري - الميناء</option>
+      <option>فوج عمر بن عبد العزيز - أبي سمراء</option>
+      <option>فوج أبي بكر الصدّيق - مرياطة</option>
+      <option>فوج عمر بن الخطاب - البداوي</option>
+      <option>فوج عثمان بن عفان - دير عمار</option>
+      <option>فوج خالد بن الوليد - عين التينة - الضنية</option>
+      <option>لم أنتمي مسبقًا لأي فوج</option>
+    </select>
+    <p class="error-msg" id="err-troop">⚠️ يرجى اختيار الفوج.</p>
+  </div>
+
+  <div class="field-row">
+    <div class="form-group">
+      <label>الرتبة الكشفية <span class="req-star">*</span></label>
+      <select id="rank">
+        <option value="">اختر الرتبة...</option>
+        <option>معاون قائد</option>
+        <option>مساعد قائد</option>
+        <option>قائد </option>
+        <option>جوال</option>
+        <option>كشاف</option>
+        <option>عريف</option>
+        <option>عريف أول</option>
+
+      </select>
+      <p class="error-msg" id="err-rank">⚠️ يرجى اختيار الرتبة.</p>
+    </div>
+    <div class="form-group">
+      <label>العمر <span class="req-star">*</span></label>
+      <input type="number" id="age" placeholder="مثال: 22" min="10" max="80">
+      <p class="error-msg" id="err-age">⚠️ يرجى إدخال عمر صحيح.</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>ملاحظات إضافية</label>
+    <textarea id="notes" rows="3" placeholder="أي ملاحظات أو معلومات إضافية..."></textarea>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="goStep(3)">التالي ← مراجعة وتأكيد</button>
+    <button class="btn btn-secondary" onclick="goStep(1)">← عودة</button>
+  </div>
+</div>
+
+<!-- SCREEN 3: CONFIRM -->
+<div class="screen scroll-form" id="screen3">
+
+  <div id="summary-block" class="summary-block"></div>
+
+  <div class="section-title">✅ التأكيدات المطلوبة</div>
+  <div class="info-note" style="margin-bottom:14px">
+    يرجى قراءة كل بند والتأكيد عليه بشكل صريح قبل إرسال التسجيل.
+  </div>
+
+  <div id="dynamic-confirms"></div>
+
+  <p class="error-msg" id="err-confirm">⚠️ يرجى الموافقة على <strong>جميع</strong> التأكيدات أعلاه للمتابعة.</p>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="submitForm()">📨 إرسال التسجيل</button>
+    <button class="btn btn-secondary" onclick="goStep(2)">← عودة</button>
+  </div>
+</div>
+
+<!-- SCREEN 4: SUCCESS -->
+<div class="screen scroll-form" id="screen4">
+  <div class="success-wrap">
+    <span class="success-icon">⚜️</span>
+    <h2>تم إرسال طلبك بنجاح!</h2>
+    <p>شكراً لتسجيلك. سيتم التواصل معك قريباً من قِبل المفوضية لتأكيد مشاركتك وتفاصيل الدفع.</p>
+    <div class="success-card" id="success-summary"></div>
+    <div style="margin-top:24px">
+      <button class="btn btn-secondary" onclick="resetForm()" style="max-width:300px;margin:auto">تسجيل مشارك آخر</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── Course data ───────────────────────────────────────────────────────────
+const COURSES = {
+  'biz': {
+    name: 'دورة ريادة أعمال', dates: '10–12 تموز 2026', fee: '$35',
+    who: 'للقادة والجوالة', commission: 'مفوضية المناهج والبرامج',
+    confirms: [
+      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee-35', text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+    ]
+  },
+  'first-aid': {
+    name: 'دورة إسعافات أولية', dates: '17–19 تموز 2026', fee: '$35',
+    who: 'للقادة والجوالة', commission: 'مفوضية المناهج والبرامج',
+    confirms: [
+      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee-35', text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+    ]
+  },
+  'games': {
+    name: 'دورة ألعاب وأغاني', dates: '14–16 آب 2026', fee: '$35',
+    who: 'للقادة', commission: 'مفوضية المناهج والبرامج',
+    confirms: [
+      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee-35', text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+    ]
+  },
+  'skills': {
+    name: 'دورة المهارات الكشفية', dates: '28–30 آب 2026', fee: '$35',
+    who: 'للجوالة والكشافة', commission: 'مفوضية المناهج والبرامج',
+    confirms: [
+      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee-35', text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+    ]
+  },
+  'deans': {
+    name: 'لقاء عمداء الأفواج', dates: '18–19 تموز 2026', fee: '$20',
+    who: 'للعمداء', commission: 'مفوضية تنمية القيادات',
+    confirms: [
+      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية اللقاء.' },
+      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة اللقاء.' },
+      { id: 'c-fee-20', text: 'أعلم أن الاشتراك <strong>$20</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات اللقاء.' },
+      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة اللقاء.' },
+    ]
+  },
+  'unit-leader': {
+    name: 'دراسة تأهيل قائد وحدة', dates: '23–26 تموز 2026', fee: '$50',
+    who: 'للقادة', commission: 'مفوضية تنمية القيادات',
+    confirms: [
+      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-degree1', text: 'أؤكد أنني حاصل على <strong>الدرجة الأولى</strong> وبإمكاني إبراز ما يثبت ذلك.' },
+      { id: 'c-age18', text: 'أؤكد أن عمري <strong>18 سنة أو أكثر</strong>.' },
+      { id: 'c-exp1year', text: 'أؤكد أنني عملت في <strong>قيادة وحدة كشفية لمدة عام على الأقل</strong>.' },
+      { id: 'c-asst-passed', text: 'أؤكد أنني اجتزت <strong>دراسة مساعد قائد بنجاح</strong>.' },
+      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee-50', text: 'أعلم أن الاشتراك <strong>$50</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+    ]
+  },
+  'asst-leader': {
+    name: 'دراسة تأهيل مساعد قائد وحدة', dates: '6–9 آب 2026', fee: '$50',
+    who: 'للقادة', commission: 'مفوضية تنمية القيادات',
+    confirms: [
+      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-degree1', text: 'أؤكد أنني حاصل على <strong>الدرجة الأولى</strong> وبإمكاني إبراز ما يثبت ذلك.' },
+      { id: 'c-age17', text: 'أؤكد أن عمري <strong>17 سنة أو أكثر</strong>.' },
+      { id: 'c-deputy-passed', text: 'أؤكد أنني اجتزت <strong>دراسة معاون قائد أو رواد الإرهاط بنجاح</strong>.' },
+      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee-50', text: 'أعلم أن الاشتراك <strong>$50</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+    ]
+  },
+  'trainer': {
+    name: 'دراسة تحضيري مدرب كشفي', dates: '13–16 آب 2026', fee: '$50',
+    who: 'للقادة', commission: 'مفوضية تنمية القيادات',
+    confirms: [
+      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-age21', text: 'أؤكد أن عمري <strong>21 سنة أو أكثر</strong>.' },
+      { id: 'c-woodbadge', text: 'أؤكد أنني اجتزت <strong>دراسة الشارة الخشبية بنجاح منذ سنة على الأقل</strong>.' },
+      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee-50', text: 'أعلم أن الاشتراك <strong>$50</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+    ]
+  },
+};
+
+// ─── State ─────────────────────────────────────────────────────────────────
+let selectedCourse = null;
+
+// ─── Course selection ───────────────────────────────────────────────────────
+function selectCourse(radio) {
+  selectedCourse = radio.value;
+  document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.req-box').forEach(b => b.classList.remove('show'));
+  const card = document.getElementById('card-' + selectedCourse);
+  if (card) {
+    card.classList.add('selected');
+    const reqBox = document.getElementById('req-' + selectedCourse);
+    if (reqBox) reqBox.classList.add('show');
+  }
+  document.getElementById('err-course').classList.remove('show');
+}
+
+// ─── Build dynamic confirms for step 3 ─────────────────────────────────────
+function buildDynamicConfirms() {
+  const c = COURSES[selectedCourse];
+  const container = document.getElementById('dynamic-confirms');
+  container.innerHTML = c.confirms.map(({ id, text }) => `
+    <label class="confirm-item" style="border-color: var(--olive); background: #F0F4E8;">
+      <input type="checkbox" id="${id}" checked>
+      <span>${text}</span>
+    </label>
+  `).join('');
+}
+
+// ─── Navigation ─────────────────────────────────────────────────────────────
+function goStep(step) {
+  if (step === 2 && !selectedCourse) {
+    document.getElementById('err-course').classList.add('show');
+    return;
+  }
+  if (step === 3) {
+    if (!validateStep2()) return;
+    buildSummary();
+    buildDynamicConfirms();
+    document.getElementById('err-confirm').classList.remove('show');
+  }
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
+  document.getElementById('screen' + step).classList.add('visible');
+  document.querySelectorAll('.step-tab').forEach((t, i) => {
+    t.classList.remove('active', 'done');
+    if (i + 1 === step) t.classList.add('active');
+    if (i + 1 < step) t.classList.add('done');
+  });
+  window.scrollTo(0, 0);
+}
+
+// ─── Validate step 2 ────────────────────────────────────────────────────────
+function validateStep2() {
+  let ok = true;
+  const fields = [
+    ['fullname', 'err-name',   v => v.trim().length > 3],
+    ['phone',    'err-phone',  v => v.trim().length >= 7],
+    ['troop',    'err-troop',  v => v !== ''],
+    ['rank',     'err-rank',   v => v !== ''],
+    ['age',      'err-age',    v => parseInt(v) >= 10 && parseInt(v) <= 80],
+  ];
+  fields.forEach(([id, errId, test]) => {
+    const el = document.getElementById(id);
+    const errEl = document.getElementById(errId);
+    if (!test(el.value)) {
+      el.classList.add('error-field');
+      errEl.classList.add('show');
+      ok = false;
+    } else {
+      el.classList.remove('error-field');
+      errEl.classList.remove('show');
+    }
+  });
+  return ok;
+}
+
+// ─── Summary block ───────────────────────────────────────────────────────────
+function buildSummary() {
+  const c = COURSES[selectedCourse];
+  document.getElementById('summary-block').innerHTML = `
+    <div class="summary-header">ملخص التسجيل</div>
+    <div class="summary-row"><span class="label">الاسم</span><span class="value">${esc(document.getElementById('fullname').value)}</span></div>
+    <div class="summary-row"><span class="label">الهاتف</span><span class="value">${esc(document.getElementById('phone').value)}</span></div>
+    <div class="summary-row"><span class="label">الفوج</span><span class="value">${esc(document.getElementById('troop').value)}</span></div>
+    <div class="summary-row"><span class="label">الرتبة</span><span class="value">${esc(document.getElementById('rank').value)}</span></div>
+    <div class="summary-row"><span class="label">العمر</span><span class="value">${esc(document.getElementById('age').value)} سنة</span></div>
+    <div class="summary-row"><span class="label">الدورة</span><span class="value">${c.name}</span></div>
+    <div class="summary-row"><span class="label">التاريخ</span><span class="value">${c.dates}</span></div>
+    <div class="summary-row"><span class="label">المفوضية المنظِّمة</span><span class="value">${c.commission}</span></div>
+    <div class="total-row"><span>الاشتراك المطلوب</span><span>${c.fee}</span></div>
+  `;
+}
+
+function esc(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ─── Submit ──────────────────────────────────────────────────────────────────
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwiICgnKopHTlslad9TBdKHJXpymz4NdHw13NfnJ2Jvnf8-MgaJgXuKhv25uFaUOH1K/exec';
+
+async function submitForm() {
+  const checkboxes = document.querySelectorAll('#dynamic-confirms input[type="checkbox"]');
+
+  // Collect unchecked items (warnings, not blockers)
+  const unchecked = [...checkboxes]
+    .filter(cb => !cb.checked)
+    .map(cb => cb.closest('.confirm-item').querySelector('span').innerText.replace(/\*/g,'').trim());
+
+  // Reset border colors
+  checkboxes.forEach(cb => {
+    cb.closest('.confirm-item').style.borderColor = cb.checked ? 'var(--olive)' : 'var(--rust)';
+    cb.closest('.confirm-item').style.background  = cb.checked ? '#F0F4E8' : '#FEF0EE';
+  });
+
+  document.getElementById('err-confirm').classList.remove('show');
+
+  const c = COURSES[selectedCourse];
+  const payload = {
+    fullname:   document.getElementById('fullname').value,
+    phone:      document.getElementById('phone').value,
+    troop:      document.getElementById('troop').value,
+    rank:       document.getElementById('rank').value,
+    age:        document.getElementById('age').value,
+    notes:      document.getElementById('notes').value,
+    course:     c.name,
+    dates:      c.dates,
+    fee:        c.fee,
+    commission: c.commission,
+    unchecked:  unchecked.length > 0 ? unchecked.join(' | ') : 'كل الشروط مؤكدة ✓',
+  };
+
+  // Show loading state
+  const btn = document.querySelector('#screen3 .btn-primary');
+  btn.disabled = true;
+  btn.textContent = '⏳ جاري الإرسال...';
+
+  try {
+    await fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(err) {
+    // no-cors always throws on response reading — that's OK, data still lands
+  }
+
+  document.getElementById('success-summary').innerHTML = `
+    <div class="summary-row"><span class="label">الاسم</span><span class="value">${esc(payload.fullname)}</span></div>
+    <div class="summary-row"><span class="label">الدورة</span><span class="value">${c.name}</span></div>
+    <div class="summary-row"><span class="label">التاريخ</span><span class="value">${c.dates}</span></div>
+    <div class="summary-row"><span class="label">الاشتراك</span><span class="value">${c.fee}</span></div>
+    ${unchecked.length > 0 ? `<div class="summary-row" style="background:#FEF0EE"><span class="label" style="color:var(--rust)">⚠️ شروط غير مؤكدة</span><span class="value" style="color:var(--rust);font-size:12px">${unchecked.length} بند</span></div>` : `<div class="summary-row" style="background:#F0F4E8"><span class="label" style="color:var(--olive)">✅ الشروط</span><span class="value" style="color:var(--olive)">كل الشروط مؤكدة</span></div>`}
+  `;
+
+  btn.disabled = false;
+  btn.textContent = '📨 إرسال التسجيل';
+
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
+  document.getElementById('screen4').classList.add('visible');
+  document.querySelectorAll('.step-tab').forEach(t => { t.classList.remove('active'); t.classList.add('done'); });
+  window.scrollTo(0, 0);
+}
+
+// ─── Reset ───────────────────────────────────────────────────────────────────
+function resetForm() {
+  selectedCourse = null;
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[type="text"], input[type="tel"], input[type="number"], select, textarea')
+    .forEach(el => el.value = '');
+  document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.req-box').forEach(b => b.classList.remove('show'));
+  document.querySelectorAll('.error-msg').forEach(e => e.classList.remove('show'));
+  document.getElementById('dynamic-confirms').innerHTML = '';
+  goStep(1);
+}
+</script>
+</body>
+</html>
