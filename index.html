@@ -33,7 +33,7 @@
     padding: 0 0 60px;
   }
 
-  /* HEADER */
+  /* ── HEADER ─────────────────────────────────────────────────────── */
   header {
     background: var(--olive);
     padding: 28px 24px 22px;
@@ -81,10 +81,9 @@
     filter: drop-shadow(0 0 6px rgba(255,255,255,0.3));
   }
 
-  /* STEP NAV */
+  /* ── STEP NAV ───────────────────────────────────────────────────── */
   .steps-bar {
     display: flex;
-    gap: 0;
     background: var(--sand);
     border-bottom: 2px solid var(--border);
     overflow: hidden;
@@ -99,7 +98,6 @@
     cursor: pointer;
     border-bottom: 3px solid transparent;
     transition: all .25s;
-    position: relative;
   }
   .step-tab.active {
     color: var(--olive);
@@ -107,9 +105,7 @@
     border-bottom-color: var(--olive);
     background: var(--cream);
   }
-  .step-tab.done {
-    color: var(--success);
-  }
+  .step-tab.done { color: var(--success); }
   .step-num {
     display: inline-flex;
     align-items: center;
@@ -125,15 +121,15 @@
     vertical-align: middle;
   }
   .step-tab.active .step-num { background: var(--olive); opacity: 1; }
-  .step-tab.done .step-num { background: var(--success); opacity: 1; }
+  .step-tab.done  .step-num { background: var(--success); opacity: 1; }
 
-  /* MAIN CONTENT */
+  /* ── LAYOUT ─────────────────────────────────────────────────────── */
   .container { max-width: 680px; margin: 0 auto; padding: 0 16px; }
-
   .screen { display: none; }
   .screen.visible { display: block; }
+  .scroll-form { padding-top: 20px; padding-bottom: 20px; }
 
-  /* COURSE CARDS */
+  /* ── SECTION TITLES ─────────────────────────────────────────────── */
   .section-title {
     font-size: 13px;
     font-weight: 700;
@@ -152,6 +148,7 @@
     background: var(--border);
   }
 
+  /* ── COURSE CARDS ───────────────────────────────────────────────── */
   .courses-grid { display: flex; flex-direction: column; gap: 10px; }
 
   .course-card {
@@ -161,18 +158,13 @@
     padding: 16px 18px;
     cursor: pointer;
     transition: all .2s;
-    position: relative;
     display: flex;
     gap: 14px;
     align-items: flex-start;
   }
   .course-card:hover { border-color: var(--olive-lt); box-shadow: 0 2px 10px rgba(74,92,47,.1); }
-  .course-card.selected {
-    border-color: var(--olive);
-    background: #F0F4E8;
-  }
-  .course-card input[type="radio"],
-  .course-card input[type="checkbox"] {
+  .course-card.selected { border-color: var(--olive); background: #F0F4E8; }
+  .course-card input[type="radio"] {
     width: 18px; height: 18px;
     accent-color: var(--olive);
     margin-top: 3px;
@@ -180,18 +172,8 @@
     cursor: pointer;
   }
   .course-info { flex: 1; }
-  .course-name {
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--ink);
-    margin-bottom: 4px;
-  }
-  .course-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 6px;
-  }
+  .course-name { font-weight: 700; font-size: 16px; color: var(--ink); margin-bottom: 4px; }
+  .course-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
   .chip {
     display: inline-flex;
     align-items: center;
@@ -205,7 +187,7 @@
   .chip.fee { background: #EEF4E0; color: var(--olive); font-weight: 600; }
   .chip.who { background: #FDF0E8; color: var(--brown); }
 
-  /* REQUIREMENTS BADGE */
+  /* ── REQUIREMENTS BOX ───────────────────────────────────────────── */
   .req-box {
     margin-top: 10px;
     padding: 10px 12px;
@@ -220,10 +202,8 @@
   .req-box ul { padding-right: 16px; margin-top: 4px; }
   .req-box li { margin-bottom: 3px; }
 
-  /* FORM FIELDS */
-  .form-group {
-    margin-bottom: 18px;
-  }
+  /* ── FORM FIELDS ────────────────────────────────────────────────── */
+  .form-group { margin-bottom: 18px; }
   label {
     display: block;
     font-weight: 600;
@@ -232,7 +212,11 @@
     color: var(--ink);
   }
   label .req-star { color: var(--rust); margin-right: 2px; }
-  input[type="text"], input[type="tel"], input[type="number"], select, textarea {
+  input[type="text"],
+  input[type="tel"],
+  input[type="number"],
+  select,
+  textarea {
     width: 100%;
     padding: 11px 14px;
     border: 1.5px solid var(--border);
@@ -254,7 +238,7 @@
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
 
-  /* CONFIRM TOGGLES */
+  /* ── CONFIRM TOGGLES ────────────────────────────────────────────── */
   .confirm-item {
     display: flex;
     gap: 12px;
@@ -265,13 +249,13 @@
     border-radius: var(--radius);
     margin-bottom: 10px;
     cursor: pointer;
-    transition: border-color .2s;
+    transition: border-color .2s, background .2s;
   }
   .confirm-item:has(input:checked) { border-color: var(--olive); background: #F0F4E8; }
   .confirm-item input { margin-top: 2px; accent-color: var(--olive); flex-shrink: 0; }
   .confirm-item span { font-size: 14px; line-height: 1.55; color: var(--ink); }
 
-  /* SUMMARY */
+  /* ── SUMMARY ────────────────────────────────────────────────────── */
   .summary-block {
     background: var(--white);
     border: 1.5px solid var(--border);
@@ -296,7 +280,6 @@
   .summary-row:last-child { border-bottom: none; }
   .summary-row .label { color: var(--muted); }
   .summary-row .value { font-weight: 600; color: var(--ink); }
-
   .total-row {
     background: #EEF4E0;
     padding: 12px 16px;
@@ -308,7 +291,7 @@
     border-radius: 0 0 var(--radius) var(--radius);
   }
 
-  /* BUTTONS */
+  /* ── BUTTONS ────────────────────────────────────────────────────── */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -323,33 +306,18 @@
     transition: all .2s;
     border: none;
   }
-  .btn-primary {
-    background: var(--olive);
-    color: var(--white);
-    width: 100%;
-  }
-  .btn-primary:hover { background: var(--olive-lt); }
-  .btn-secondary {
-    background: var(--sand);
-    color: var(--ink);
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  .btn-secondary:hover { background: var(--border); }
+  .btn-primary { background: var(--olive); color: var(--white); width: 100%; }
+  .btn-primary:hover:not(:disabled) { background: var(--olive-lt); }
+  .btn-secondary { background: var(--sand); color: var(--ink); width: 100%; margin-bottom: 10px; }
+  .btn-secondary:hover:not(:disabled) { background: var(--border); }
   .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
   .btn-row { display: flex; flex-direction: column; gap: 0; margin-top: 24px; }
 
-  /* ERROR */
-  .error-msg {
-    color: var(--error);
-    font-size: 13px;
-    margin-top: 4px;
-    display: none;
-  }
+  /* ── ERRORS ─────────────────────────────────────────────────────── */
+  .error-msg { color: var(--error); font-size: 13px; margin-top: 4px; display: none; }
   .error-msg.show { display: block; }
 
-  /* TOAST */
+  /* ── TOAST ──────────────────────────────────────────────────────── */
   .toast {
     position: fixed;
     bottom: 24px;
@@ -364,19 +332,16 @@
     transition: transform .3s ease;
     z-index: 999;
     white-space: nowrap;
+    max-width: 90vw;
+    text-align: center;
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.toast-error { background: var(--error); }
+  .toast.toast-success { background: var(--success); }
 
-  /* SUCCESS */
-  .success-wrap {
-    text-align: center;
-    padding: 40px 20px;
-  }
-  .success-icon {
-    font-size: 64px;
-    display: block;
-    margin-bottom: 16px;
-  }
+  /* ── SUCCESS ────────────────────────────────────────────────────── */
+  .success-wrap { text-align: center; padding: 40px 20px; }
+  .success-icon { font-size: 64px; display: block; margin-bottom: 16px; }
   .success-wrap h2 { font-size: 24px; color: var(--olive); margin-bottom: 8px; }
   .success-wrap p { color: var(--muted); line-height: 1.6; }
   .success-card {
@@ -388,9 +353,7 @@
     text-align: right;
   }
 
-  /* SCROLLABLE WRAPPER */
-  .scroll-form { padding-top: 20px; padding-bottom: 20px; }
-
+  /* ── INFO NOTE ──────────────────────────────────────────────────── */
   .info-note {
     background: #EEF4E0;
     border-right: 3px solid var(--olive);
@@ -407,25 +370,22 @@
 
 <header>
   <span class="fleur">⚜</span>
-  <div class='badge'>جمعية الكشاف المسلم في لبنان - مفوضية الشمال</div>
+  <div class="badge">جمعية الكشاف المسلم في لبنان - مفوضية الشمال</div>
   <h1>دورات صوفر التدريبية الصيفية 2026</h1>
   <p>منصة خاصة لمفوضية الشمال</p>
 </header>
 
 <div class="steps-bar">
-  <div class="step-tab active" id="tab1">
-    <span class="step-num" style="color: var(--olive-lt)">1</span> الدورة
-  </div>
-  <div class="step-tab" id="tab2">
-    <span class="step-num" style="color: var(--muted)">2</span> المعلومات
-  </div>
-  <div class="step-tab" id="tab3">
-    <span class="step-num" style="color: var(--muted)">3</span> التأكيد
-  </div>
+  <div class="step-tab active" id="tab1"><span class="step-num" style="color:var(--olive-lt)">1</span> الدورة</div>
+  <div class="step-tab"        id="tab2"><span class="step-num" style="color:var(--muted)">2</span> المعلومات</div>
+  <div class="step-tab"        id="tab3"><span class="step-num" style="color:var(--muted)">3</span> التأكيد</div>
 </div>
 
-<!-- SCREEN 1: CHOOSE COURSE -->
 <div class="container">
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SCREEN 1 — اختيار الدورة
+════════════════════════════════════════════════════════════════════ -->
 <div class="screen visible scroll-form" id="screen1">
 
   <div class="info-note">
@@ -433,7 +393,7 @@
   </div>
 
   <div class="section-title">📚 دورات مفوضية المناهج والبرامج</div>
-  <div class="courses-grid" id="groupA">
+  <div class="courses-grid">
 
     <label class="course-card" id="card-biz">
       <input type="radio" name="course" value="biz" onchange="selectCourse(this)">
@@ -521,7 +481,7 @@
   </div>
 
   <div class="section-title">🎖️ دورات مفوضية تنمية القيادات</div>
-  <div class="courses-grid" id="groupB">
+  <div class="courses-grid">
 
     <label class="course-card" id="card-deans">
       <input type="radio" name="course" value="deans" onchange="selectCourse(this)">
@@ -615,13 +575,15 @@
   </div>
 </div>
 
-<!-- SCREEN 2: PERSONAL INFO -->
+<!-- ══════════════════════════════════════════════════════════════════
+     SCREEN 2 — المعلومات الشخصية
+════════════════════════════════════════════════════════════════════ -->
 <div class="screen scroll-form" id="screen2">
 
   <div class="form-group">
     <label>الاسم الكامل <span class="req-star">*</span></label>
     <input type="text" id="fullname" placeholder="الاسم الثلاثي كاملاً" autocomplete="name">
-    <p class="error-msg" id="err-name">⚠️ يرجى إدخال الاسم الكامل.</p>
+    <p class="error-msg" id="err-name">⚠️ يرجى إدخال الاسم الكامل (4 أحرف على الأقل).</p>
   </div>
 
   <div class="form-group">
@@ -663,20 +625,19 @@
         <option>كشاف</option>
         <option>عريف</option>
         <option>عريف أول</option>
-
       </select>
       <p class="error-msg" id="err-rank">⚠️ يرجى اختيار الرتبة.</p>
     </div>
     <div class="form-group">
       <label>العمر <span class="req-star">*</span></label>
       <input type="number" id="age" placeholder="مثال: 22" min="10" max="80">
-      <p class="error-msg" id="err-age">⚠️ يرجى إدخال عمر صحيح.</p>
+      <p class="error-msg" id="err-age">⚠️ يرجى إدخال عمر صحيح (10–80).</p>
     </div>
   </div>
 
   <div class="form-group">
-    <label>الاختصاص الكشفي (للقادة) أو ملاحظات ان وجد</label>
-    <textarea id="notes" rows="3" placeholder="أي ملاحظات أو معلومات إضافية..."></textarea>
+    <label>الاختصاص الكشفي (للقادة) أو ملاحظات إن وجد</label>
+    <textarea id="notes" rows="3" placeholder="أي ملاحظات أو معلومات إضافية... (1000 حرف كحد أقصى)" maxlength="1000"></textarea>
   </div>
 
   <div class="btn-row">
@@ -685,13 +646,15 @@
   </div>
 </div>
 
-<!-- SCREEN 3: CONFIRM -->
+<!-- ══════════════════════════════════════════════════════════════════
+     SCREEN 3 — مراجعة وتأكيد
+════════════════════════════════════════════════════════════════════ -->
 <div class="screen scroll-form" id="screen3">
 
   <div id="summary-block" class="summary-block"></div>
 
   <div class="section-title">✅ التأكيدات المطلوبة</div>
-  <div class="info-note" style="margin-bottom:14px">
+  <div class="info-note">
     يرجى قراءة كل بند والتأكيد عليه بشكل صريح قبل إرسال التسجيل.
   </div>
 
@@ -700,19 +663,24 @@
   <p class="error-msg" id="err-confirm">⚠️ يرجى الموافقة على <strong>جميع</strong> التأكيدات أعلاه للمتابعة.</p>
 
   <div class="btn-row">
-    <button class="btn btn-primary" onclick="submitForm()">📨 إرسال التسجيل</button>
+    <button class="btn btn-primary" id="submit-btn" onclick="submitForm()">📨 إرسال التسجيل</button>
     <button class="btn btn-secondary" onclick="goStep(2)">← عودة</button>
   </div>
 </div>
 
-<!-- SCREEN 4: SUCCESS -->
+<!-- ══════════════════════════════════════════════════════════════════
+     SCREEN 4 — نجاح التسجيل
+════════════════════════════════════════════════════════════════════ -->
 <div class="screen scroll-form" id="screen4">
   <div class="success-wrap">
     <span class="success-icon">⚜️</span>
     <h2>تم إرسال طلبك بنجاح!</h2>
+    <p>سيتواصل معك المسؤولون قريباً لتأكيد تسجيلك.</p>
     <div class="success-card" id="success-summary"></div>
     <div style="margin-top:24px">
-      <button class="btn btn-secondary" onclick="resetForm()" style="max-width:300px;margin:auto">تسجيل مشارك آخر</button>
+      <button class="btn btn-secondary" onclick="resetForm()" style="max-width:300px;margin:auto">
+        تسجيل مشارك آخر
+      </button>
     </div>
   </div>
 </div>
@@ -722,90 +690,95 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── Course data ───────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+//  ⚠️  ضع رابط Apps Script الخاص بك هنا
+// ═══════════════════════════════════════════════════════════════════
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyJ4zvJhqtMqtt2jHoftt7Pa65PlY6BiVbW_HkBvgvYTLMZmDinOAb7wae9z0w7rhH6/exec';
+
+// ─── Course data ────────────────────────────────────────────────────
 const COURSES = {
   'biz': {
     name: 'دورة ريادة أعمال', dates: '10–12 تموز 2026', fee: '$35',
     who: 'للقادة والجوالة', commission: 'مفوضية المناهج والبرامج',
     confirms: [
-      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
-      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
-      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
-      { id: 'c-fee-35', text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
-      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+      { id: 'c-protection',  text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-sleeping',    text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform',     text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee',         text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules',       text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
     ]
   },
   'first-aid': {
     name: 'دورة إسعافات أولية', dates: '17–19 تموز 2026', fee: '$35',
     who: 'للقادة والجوالة', commission: 'مفوضية المناهج والبرامج',
     confirms: [
-      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
-      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
-      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
-      { id: 'c-fee-35', text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
-      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+      { id: 'c-protection',  text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-sleeping',    text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform',     text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee',         text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules',       text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
     ]
   },
   'games': {
     name: 'دورة ألعاب وأغاني', dates: '14–16 آب 2026', fee: '$35',
     who: 'للقادة', commission: 'مفوضية المناهج والبرامج',
     confirms: [
-      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
-      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
-      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
-      { id: 'c-fee-35', text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
-      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+      { id: 'c-protection',  text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-sleeping',    text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform',     text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee',         text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules',       text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
     ]
   },
   'skills': {
     name: 'دورة المهارات الكشفية', dates: '28–30 آب 2026', fee: '$35',
     who: 'للجوالة والكشافة', commission: 'مفوضية المناهج والبرامج',
     confirms: [
-      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
-      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
-      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
-      { id: 'c-fee-35', text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
-      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+      { id: 'c-protection',  text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-sleeping',    text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform',     text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee',         text: 'أعلم أن الاشتراك <strong>$35</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules',       text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
     ]
   },
   'deans': {
     name: 'لقاء عمداء الأفواج', dates: '18–19 تموز 2026', fee: '$20',
     who: 'للعمداء', commission: 'مفوضية تنمية القيادات',
     confirms: [
-      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية اللقاء.' },
-      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
-      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة اللقاء.' },
-      { id: 'c-fee-20', text: 'أعلم أن الاشتراك <strong>$20</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات اللقاء.' },
-      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة اللقاء.' },
+      { id: 'c-protection',  text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية اللقاء.' },
+      { id: 'c-sleeping',    text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform',     text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة اللقاء.' },
+      { id: 'c-fee',         text: 'أعلم أن الاشتراك <strong>$20</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات اللقاء.' },
+      { id: 'c-rules',       text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة اللقاء.' },
     ]
   },
   'unit-leader': {
     name: 'دراسة تأهيل قائد وحدة', dates: '23–26 تموز 2026', fee: '$50',
     who: 'للقادة', commission: 'مفوضية تنمية القيادات',
     confirms: [
-      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
-      { id: 'c-degree1', text: 'أؤكد أنني حاصل على <strong>الدرجة الأولى</strong> وبإمكاني إبراز ما يثبت ذلك.' },
-      { id: 'c-age18', text: 'أؤكد أن عمري <strong>18 سنة أو أكثر</strong>.' },
-      { id: 'c-exp1year', text: 'أؤكد أنني عملت في <strong>قيادة وحدة كشفية لمدة عام على الأقل</strong>.' },
+      { id: 'c-protection',  text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-degree1',     text: 'أؤكد أنني حاصل على <strong>الدرجة الأولى</strong> وبإمكاني إبراز ما يثبت ذلك.' },
+      { id: 'c-age18',       text: 'أؤكد أن عمري <strong>18 سنة أو أكثر</strong>.' },
+      { id: 'c-exp1year',    text: 'أؤكد أنني عملت في <strong>قيادة وحدة كشفية لمدة عام على الأقل</strong>.' },
       { id: 'c-asst-passed', text: 'أؤكد أنني اجتزت <strong>دراسة مساعد قائد بنجاح</strong>.' },
-      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
-      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
-      { id: 'c-fee-50', text: 'أعلم أن الاشتراك <strong>$50</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
-      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+      { id: 'c-sleeping',    text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform',     text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee',         text: 'أعلم أن الاشتراك <strong>$50</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules',       text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
     ]
   },
   'asst-leader': {
     name: 'دراسة تأهيل مساعد قائد وحدة', dates: '6–9 آب 2026', fee: '$50',
     who: 'للقادة', commission: 'مفوضية تنمية القيادات',
     confirms: [
-      { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
-      { id: 'c-degree1', text: 'أؤكد أنني حاصل على <strong>الدرجة الأولى</strong> وبإمكاني إبراز ما يثبت ذلك.' },
-      { id: 'c-age17', text: 'أؤكد أن عمري <strong>17 سنة أو أكثر</strong>.' },
+      { id: 'c-protection',    text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
+      { id: 'c-degree1',       text: 'أؤكد أنني حاصل على <strong>الدرجة الأولى</strong> وبإمكاني إبراز ما يثبت ذلك.' },
+      { id: 'c-age17',         text: 'أؤكد أن عمري <strong>17 سنة أو أكثر</strong>.' },
       { id: 'c-deputy-passed', text: 'أؤكد أنني اجتزت <strong>دراسة معاون قائد أو رواد الإرهاط بنجاح</strong>.' },
-      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
-      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
-      { id: 'c-fee-50', text: 'أعلم أن الاشتراك <strong>$50</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
-      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+      { id: 'c-sleeping',      text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform',       text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee',           text: 'أعلم أن الاشتراك <strong>$50</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules',         text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
     ]
   },
   'trainer': {
@@ -813,20 +786,39 @@ const COURSES = {
     who: 'للقادة', commission: 'مفوضية تنمية القيادات',
     confirms: [
       { id: 'c-protection', text: 'أؤكد أنني استكملت تدريب <strong>الحماية من الأذى</strong> وأتعهد بإبراز الشهادة قبل بداية الدورة.' },
-      { id: 'c-age21', text: 'أؤكد أن عمري <strong>21 سنة أو أكثر</strong>.' },
-      { id: 'c-woodbadge', text: 'أؤكد أنني اجتزت <strong>دراسة الشارة الخشبية بنجاح منذ سنة على الأقل</strong>.' },
-      { id: 'c-sleeping-bag', text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
-      { id: 'c-uniform', text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
-      { id: 'c-fee-50', text: 'أعلم أن الاشتراك <strong>$50</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
-      { id: 'c-rules', text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
+      { id: 'c-age21',      text: 'أؤكد أن عمري <strong>21 سنة أو أكثر</strong>.' },
+      { id: 'c-woodbadge',  text: 'أؤكد أنني اجتزت <strong>دراسة الشارة الخشبية بنجاح منذ سنة على الأقل</strong>.' },
+      { id: 'c-sleeping',   text: 'سأحضر معي <strong>كيس نوم</strong> وكافة المستلزمات الشخصية.' },
+      { id: 'c-uniform',    text: 'سألتزم بارتداء <strong>اللباس الكشفي الكامل</strong> طوال فترة الدورة.' },
+      { id: 'c-fee',        text: 'أعلم أن الاشتراك <strong>$50</strong> يُدفع عند التسجيل ويشمل كافة مستلزمات الدورة.' },
+      { id: 'c-rules',      text: 'التزم بالنظام الداخلي للمخيم وبكافة تعليمات إدارة الدورة.' },
     ]
   },
 };
 
-// ─── State ─────────────────────────────────────────────────────────────────
+// ─── State ──────────────────────────────────────────────────────────
 let selectedCourse = null;
 
-// ─── Course selection ───────────────────────────────────────────────────────
+// ─── Toast ──────────────────────────────────────────────────────────
+let toastTimer = null;
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' toast-' + type : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = 'toast'; }, 3800);
+}
+
+// ─── Escape HTML ────────────────────────────────────────────────────
+function esc(str) {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// ─── Course selection ────────────────────────────────────────────────
 function selectCourse(radio) {
   selectedCourse = radio.value;
   document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
@@ -834,25 +826,24 @@ function selectCourse(radio) {
   const card = document.getElementById('card-' + selectedCourse);
   if (card) {
     card.classList.add('selected');
-    const reqBox = document.getElementById('req-' + selectedCourse);
-    if (reqBox) reqBox.classList.add('show');
+    const rb = document.getElementById('req-' + selectedCourse);
+    if (rb) rb.classList.add('show');
   }
   document.getElementById('err-course').classList.remove('show');
 }
 
-// ─── Build dynamic confirms for step 3 ─────────────────────────────────────
+// ─── Build confirms for step 3 ───────────────────────────────────────
 function buildDynamicConfirms() {
   const c = COURSES[selectedCourse];
-  const container = document.getElementById('dynamic-confirms');
-  container.innerHTML = c.confirms.map(({ id, text }) => `
-    <label class="confirm-item" style="border-color: var(--olive); background: #F0F4E8;">
+  document.getElementById('dynamic-confirms').innerHTML = c.confirms.map(({ id, text }) => `
+    <label class="confirm-item">
       <input type="checkbox" id="${id}" checked>
       <span>${text}</span>
     </label>
   `).join('');
 }
 
-// ─── Navigation ─────────────────────────────────────────────────────────────
+// ─── Navigation ──────────────────────────────────────────────────────
 function goStep(step) {
   if (step === 2 && !selectedCourse) {
     document.getElementById('err-course').classList.add('show');
@@ -869,27 +860,28 @@ function goStep(step) {
   document.querySelectorAll('.step-tab').forEach((t, i) => {
     t.classList.remove('active', 'done');
     if (i + 1 === step) t.classList.add('active');
-    if (i + 1 < step) t.classList.add('done');
+    if (i + 1 < step)  t.classList.add('done');
   });
   window.scrollTo(0, 0);
 }
 
-// ─── Validate step 2 ────────────────────────────────────────────────────────
+// ─── Validate step 2 ─────────────────────────────────────────────────
 function validateStep2() {
   let ok = true;
   const fields = [
-    ['fullname', 'err-name',   v => v.trim().length > 3],
-    ['phone',    'err-phone',  v => v.trim().length >= 7],
-    ['troop',    'err-troop',  v => v !== ''],
-    ['rank',     'err-rank',   v => v !== ''],
-    ['age',      'err-age',    v => parseInt(v) >= 10 && parseInt(v) <= 80],
+    ['fullname', 'err-name',  v => v.trim().length >= 4 && v.trim().length <= 200],
+    ['phone',    'err-phone', v => v.trim().length >= 7 && v.trim().length <= 20],
+    ['troop',    'err-troop', v => v !== ''],
+    ['rank',     'err-rank',  v => v !== ''],
+    ['age',      'err-age',   v => { const n = parseInt(v); return !isNaN(n) && n >= 10 && n <= 80; }],
   ];
   fields.forEach(([id, errId, test]) => {
-    const el = document.getElementById(id);
+    const el    = document.getElementById(id);
     const errEl = document.getElementById(errId);
     if (!test(el.value)) {
       el.classList.add('error-field');
       errEl.classList.add('show');
+      if (ok) el.focus();
       ok = false;
     } else {
       el.classList.remove('error-field');
@@ -899,7 +891,7 @@ function validateStep2() {
   return ok;
 }
 
-// ─── Summary block ───────────────────────────────────────────────────────────
+// ─── Summary ──────────────────────────────────────────────────────────
 function buildSummary() {
   const c = COURSES[selectedCourse];
   document.getElementById('summary-block').innerHTML = `
@@ -909,44 +901,38 @@ function buildSummary() {
     <div class="summary-row"><span class="label">الفوج</span><span class="value">${esc(document.getElementById('troop').value)}</span></div>
     <div class="summary-row"><span class="label">الرتبة</span><span class="value">${esc(document.getElementById('rank').value)}</span></div>
     <div class="summary-row"><span class="label">العمر</span><span class="value">${esc(document.getElementById('age').value)} سنة</span></div>
-    <div class="summary-row"><span class="label">الدورة</span><span class="value">${c.name}</span></div>
-    <div class="summary-row"><span class="label">التاريخ</span><span class="value">${c.dates}</span></div>
-    <div class="summary-row"><span class="label">المفوضية المنظِّمة</span><span class="value">${c.commission}</span></div>
-    <div class="total-row"><span>الاشتراك المطلوب</span><span>${c.fee}</span></div>
+    <div class="summary-row"><span class="label">الدورة</span><span class="value">${esc(c.name)}</span></div>
+    <div class="summary-row"><span class="label">التاريخ</span><span class="value">${esc(c.dates)}</span></div>
+    <div class="summary-row"><span class="label">المفوضية</span><span class="value">${esc(c.commission)}</span></div>
+    <div class="total-row"><span>الاشتراك المطلوب</span><span>${esc(c.fee)}</span></div>
   `;
 }
 
-function esc(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// ─── Submit ──────────────────────────────────────────────────────────────────
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwiICgnKopHTlslad9TBdKHJXpymz4NdHw13NfnJ2Jvnf8-MgaJgXuKhv25uFaUOH1K/exec';
-
+// ─── Submit ───────────────────────────────────────────────────────────
 async function submitForm() {
-  const checkboxes = document.querySelectorAll('#dynamic-confirms input[type="checkbox"]');
+  const checkboxes = [...document.querySelectorAll('#dynamic-confirms input[type="checkbox"]')];
 
-  // Collect unchecked items (warnings, not blockers)
-  const unchecked = [...checkboxes]
-    .filter(cb => !cb.checked)
-    .map(cb => cb.closest('.confirm-item').querySelector('span').innerText.replace(/\*/g,'').trim());
-
-  // Reset border colors
+  // Highlight unchecked items (visual feedback, not a hard block)
   checkboxes.forEach(cb => {
-    cb.closest('.confirm-item').style.borderColor = cb.checked ? 'var(--olive)' : 'var(--rust)';
-    cb.closest('.confirm-item').style.background  = cb.checked ? '#F0F4E8' : '#FEF0EE';
+    const item = cb.closest('.confirm-item');
+    item.style.borderColor = cb.checked ? 'var(--olive)' : 'var(--rust)';
+    item.style.background  = cb.checked ? '#F0F4E8'      : '#FEF0EE';
   });
+
+  const unchecked = checkboxes
+    .filter(cb => !cb.checked)
+    .map(cb => cb.closest('.confirm-item').querySelector('span').innerText.trim());
 
   document.getElementById('err-confirm').classList.remove('show');
 
   const c = COURSES[selectedCourse];
   const payload = {
-    fullname:   document.getElementById('fullname').value,
-    phone:      document.getElementById('phone').value,
+    fullname:   document.getElementById('fullname').value.trim(),
+    phone:      document.getElementById('phone').value.trim(),
     troop:      document.getElementById('troop').value,
     rank:       document.getElementById('rank').value,
     age:        document.getElementById('age').value,
-    notes:      document.getElementById('notes').value,
+    notes:      document.getElementById('notes').value.trim().substring(0, 1000),
     course:     c.name,
     dates:      c.dates,
     fee:        c.fee,
@@ -954,28 +940,48 @@ async function submitForm() {
     unchecked:  unchecked.length > 0 ? unchecked.join(' | ') : 'كل الشروط مؤكدة ✓',
   };
 
-  // Show loading state
-  const btn = document.querySelector('#screen3 .btn-primary');
+  // Loading state
+  const btn = document.getElementById('submit-btn');
   btn.disabled = true;
   btn.textContent = '⏳ جاري الإرسال...';
 
   try {
-    await fetch(SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
+    const res = await fetch(SHEET_URL, {
+      method:  'POST',
+      // ← لا no-cors هنا: نريد قراءة الاستجابة الفعلية
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body:    JSON.stringify(payload),
     });
-  } catch(err) {
-    // no-cors always throws on response reading — that's OK, data still lands
+
+    const result = await res.json();
+
+    if (result.status !== 'success') {
+      throw new Error(result.message || 'خطأ غير معروف');
+    }
+
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = '📨 إرسال التسجيل';
+    showToast('❌ فشل الإرسال: ' + err.message, 'error');
+    return; // ← لا ننتقل لشاشة النجاح
   }
 
+  // ── Success ────────────────────────────────────────────────────────
   document.getElementById('success-summary').innerHTML = `
     <div class="summary-row"><span class="label">الاسم</span><span class="value">${esc(payload.fullname)}</span></div>
-    <div class="summary-row"><span class="label">الدورة</span><span class="value">${c.name}</span></div>
-    <div class="summary-row"><span class="label">التاريخ</span><span class="value">${c.dates}</span></div>
-    <div class="summary-row"><span class="label">الاشتراك</span><span class="value">${c.fee}</span></div>
-    ${unchecked.length > 0 ? `<div class="summary-row" style="background:#FEF0EE"><span class="label" style="color:var(--rust)">⚠️ شروط غير مؤكدة</span><span class="value" style="color:var(--rust);font-size:12px">${unchecked.length} بند</span></div>` : `<div class="summary-row" style="background:#F0F4E8"><span class="label" style="color:var(--olive)">✅ الشروط</span><span class="value" style="color:var(--olive)">كل الشروط مؤكدة</span></div>`}
+    <div class="summary-row"><span class="label">الدورة</span><span class="value">${esc(c.name)}</span></div>
+    <div class="summary-row"><span class="label">التاريخ</span><span class="value">${esc(c.dates)}</span></div>
+    <div class="summary-row"><span class="label">الاشتراك</span><span class="value">${esc(c.fee)}</span></div>
+    ${unchecked.length > 0
+      ? `<div class="summary-row" style="background:#FEF0EE">
+           <span class="label" style="color:var(--rust)">⚠️ شروط غير مؤكدة</span>
+           <span class="value"  style="color:var(--rust);font-size:12px">${unchecked.length} بند</span>
+         </div>`
+      : `<div class="summary-row" style="background:#F0F4E8">
+           <span class="label" style="color:var(--olive)">✅ الشروط</span>
+           <span class="value"  style="color:var(--olive)">كل الشروط مؤكدة</span>
+         </div>`
+    }
   `;
 
   btn.disabled = false;
@@ -983,11 +989,14 @@ async function submitForm() {
 
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
   document.getElementById('screen4').classList.add('visible');
-  document.querySelectorAll('.step-tab').forEach(t => { t.classList.remove('active'); t.classList.add('done'); });
+  document.querySelectorAll('.step-tab').forEach(t => {
+    t.classList.remove('active');
+    t.classList.add('done');
+  });
   window.scrollTo(0, 0);
 }
 
-// ─── Reset ───────────────────────────────────────────────────────────────────
+// ─── Reset ─────────────────────────────────────────────────────────────
 function resetForm() {
   selectedCourse = null;
   document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
