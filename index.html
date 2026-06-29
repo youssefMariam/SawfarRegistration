@@ -215,6 +215,7 @@
   input[type="text"],
   input[type="tel"],
   input[type="number"],
+  input[type="date"],
   select,
   textarea {
     width: 100%;
@@ -227,6 +228,11 @@
     background: var(--white);
     transition: border-color .2s;
     appearance: none;
+    -webkit-appearance: none;
+  }
+  input[type="date"] {
+    direction: ltr;
+    text-align: left;
   }
   input:focus, select:focus, textarea:focus {
     outline: none;
@@ -234,6 +240,21 @@
     box-shadow: 0 0 0 3px rgba(74,92,47,.1);
   }
   input.error-field { border-color: var(--error); }
+
+  /* Age auto-fill badge */
+  .age-display {
+    margin-top: 8px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #EEF4E0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--olive);
+    font-weight: 600;
+  }
+  .age-display.visible { display: flex; }
 
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
@@ -592,6 +613,16 @@
     <p class="error-msg" id="err-phone">⚠️ يرجى إدخال رقم هاتف صحيح.</p>
   </div>
 
+  <!-- ── NEW: Birth Date field ── -->
+  <div class="form-group">
+    <label>تاريخ الميلاد <span class="req-star">*</span></label>
+    <input type="date" id="birthdate" max="" onchange="onBirthdateChange()">
+    <div class="age-display" id="age-display">
+      🎂 <span id="age-display-text"></span>
+    </div>
+    <p class="error-msg" id="err-birthdate">⚠️ يرجى إدخال تاريخ ميلاد صحيح.</p>
+  </div>
+
   <div class="form-group">
     <label>الفوج <span class="req-star">*</span></label>
     <select id="troop">
@@ -630,8 +661,8 @@
     </div>
     <div class="form-group">
       <label>العمر باللغة الانجليزية <span class="req-star">*</span></label>
-      <input type="number" id="age" placeholder="مثال: 22" min="10" max="80">
-      <p class="error-msg" id="err-age">⚠️ يرجى إدخال عمر صحيح (10–80).</p>
+      <input type="number" id="age" placeholder="يُحسب تلقائياً" min="10" max="80" readonly style="background:#F7F3EC;color:var(--muted);cursor:default">
+      <p class="error-msg" id="err-age">⚠️ يرجى إدخال تاريخ الميلاد أولاً.</p>
     </div>
   </div>
 
@@ -693,7 +724,10 @@
 // ═══════════════════════════════════════════════════════════════════
 //  ⚠️  ضع رابط Apps Script الخاص بك هنا
 // ═══════════════════════════════════════════════════════════════════
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwjXYeNUfMcqKbX95vra9GHEms-dD8uoJiM2H7Z2K_zi4JqzX9De38ESBbYF-sx9A/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwT6wxbEfwlNbKgTpvY_0H2Ql8wT3rLM8ZGHdXFLGrkt9OKdAoD_ntVxEUAbB2xShHr/exec';
+
+// Set max date for birthdate field (today)
+document.getElementById('birthdate').max = new Date().toISOString().split('T')[0];
 
 // ─── Course data ────────────────────────────────────────────────────
 const COURSES = {
@@ -818,6 +852,54 @@ function esc(str) {
     .replace(/"/g,'&quot;');
 }
 
+// ─── Calculate age from birthdate ───────────────────────────────────
+function calcAge(birthdateStr) {
+  if (!birthdateStr) return null;
+  const today = new Date();
+  const birth = new Date(birthdateStr);
+  if (isNaN(birth.getTime())) return null;
+  let age = today.getFullYear() - birth.getFullYear();
+  const m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  return age;
+}
+
+// ─── Format date Arabic-friendly ────────────────────────────────────
+function formatDateArabic(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString('ar-LB', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+// ─── On birthdate change ─────────────────────────────────────────────
+function onBirthdateChange() {
+  const val = document.getElementById('birthdate').value;
+  const age = calcAge(val);
+  const ageInput = document.getElementById('age');
+  const ageDisplay = document.getElementById('age-display');
+  const ageDisplayText = document.getElementById('age-display-text');
+
+  if (age !== null && age >= 10 && age <= 80) {
+    ageInput.value = age;
+    ageDisplayText.textContent = 'عمرك ' + age + ' سنة';
+    ageDisplay.classList.add('visible');
+    document.getElementById('err-birthdate').classList.remove('show');
+    document.getElementById('err-age').classList.remove('show');
+    ageInput.classList.remove('error-field');
+    document.getElementById('birthdate').classList.remove('error-field');
+  } else if (age !== null) {
+    ageInput.value = '';
+    ageDisplayText.textContent = '';
+    ageDisplay.classList.remove('visible');
+    document.getElementById('err-birthdate').textContent = '⚠️ العمر يجب أن يكون بين 10 و80 سنة.';
+    document.getElementById('err-birthdate').classList.add('show');
+  } else {
+    ageInput.value = '';
+    ageDisplay.classList.remove('visible');
+  }
+}
+
 // ─── Course selection ────────────────────────────────────────────────
 function selectCourse(radio) {
   selectedCourse = radio.value;
@@ -868,39 +950,65 @@ function goStep(step) {
 // ─── Validate step 2 ─────────────────────────────────────────────────
 function validateStep2() {
   let ok = true;
+  const firstFail = [];
+
   const fields = [
-    ['fullname', 'err-name',  v => v.trim().length >= 4 && v.trim().length <= 200],
-    ['phone',    'err-phone', v => v.trim().length >= 7 && v.trim().length <= 20],
-    ['troop',    'err-troop', v => v !== ''],
-    ['rank',     'err-rank',  v => v !== ''],
-    ['age',      'err-age',   v => { const n = parseInt(v); return !isNaN(n) && n >= 10 && n <= 80; }],
+    ['fullname',  'err-name',      v => v.trim().length >= 4 && v.trim().length <= 200],
+    ['phone',     'err-phone',     v => v.trim().length >= 7 && v.trim().length <= 20],
+    ['troop',     'err-troop',     v => v !== ''],
+    ['rank',      'err-rank',      v => v !== ''],
   ];
+
   fields.forEach(([id, errId, test]) => {
     const el    = document.getElementById(id);
     const errEl = document.getElementById(errId);
     if (!test(el.value)) {
       el.classList.add('error-field');
       errEl.classList.add('show');
-      if (ok) el.focus();
+      firstFail.push(el);
       ok = false;
     } else {
       el.classList.remove('error-field');
       errEl.classList.remove('show');
     }
   });
+
+  // Validate birthdate
+  const bdEl  = document.getElementById('birthdate');
+  const bdErr = document.getElementById('err-birthdate');
+  const age   = calcAge(bdEl.value);
+  if (!bdEl.value || age === null || age < 10 || age > 80) {
+    bdEl.classList.add('error-field');
+    bdErr.textContent = !bdEl.value
+      ? '⚠️ يرجى إدخال تاريخ الميلاد.'
+      : '⚠️ العمر يجب أن يكون بين 10 و80 سنة.';
+    bdErr.classList.add('show');
+    firstFail.push(bdEl);
+    ok = false;
+  } else {
+    bdEl.classList.remove('error-field');
+    bdErr.classList.remove('show');
+    // Make sure age field is updated
+    document.getElementById('age').value = age;
+  }
+
+  if (firstFail.length > 0) firstFail[0].focus();
   return ok;
 }
 
 // ─── Summary ──────────────────────────────────────────────────────────
 function buildSummary() {
   const c = COURSES[selectedCourse];
+  const bdVal = document.getElementById('birthdate').value;
+  const age   = calcAge(bdVal);
   document.getElementById('summary-block').innerHTML = `
     <div class="summary-header">ملخص التسجيل</div>
     <div class="summary-row"><span class="label">الاسم</span><span class="value">${esc(document.getElementById('fullname').value)}</span></div>
     <div class="summary-row"><span class="label">الهاتف</span><span class="value">${esc(document.getElementById('phone').value)}</span></div>
+    <div class="summary-row"><span class="label">تاريخ الميلاد</span><span class="value" style="direction:ltr;text-align:right">${esc(formatDateArabic(bdVal))}</span></div>
+    <div class="summary-row"><span class="label">العمر</span><span class="value">${esc(String(age))} سنة</span></div>
     <div class="summary-row"><span class="label">الفوج</span><span class="value">${esc(document.getElementById('troop').value)}</span></div>
     <div class="summary-row"><span class="label">الرتبة</span><span class="value">${esc(document.getElementById('rank').value)}</span></div>
-    <div class="summary-row"><span class="label">العمر</span><span class="value">${esc(document.getElementById('age').value)} سنة</span></div>
     <div class="summary-row"><span class="label">الدورة</span><span class="value">${esc(c.name)}</span></div>
     <div class="summary-row"><span class="label">التاريخ</span><span class="value">${esc(c.dates)}</span></div>
     <div class="summary-row"><span class="label">المفوضية</span><span class="value">${esc(c.commission)}</span></div>
@@ -912,7 +1020,6 @@ function buildSummary() {
 async function submitForm() {
   const checkboxes = [...document.querySelectorAll('#dynamic-confirms input[type="checkbox"]')];
 
-  // Highlight unchecked items (visual feedback, not a hard block)
   checkboxes.forEach(cb => {
     const item = cb.closest('.confirm-item');
     item.style.borderColor = cb.checked ? 'var(--olive)' : 'var(--rust)';
@@ -925,13 +1032,17 @@ async function submitForm() {
 
   document.getElementById('err-confirm').classList.remove('show');
 
-  const c = COURSES[selectedCourse];
+  const c       = COURSES[selectedCourse];
+  const bdVal   = document.getElementById('birthdate').value;
+  const age     = calcAge(bdVal);
+
   const payload = {
     fullname:   document.getElementById('fullname').value.trim(),
     phone:      document.getElementById('phone').value.trim(),
+    birthdate:  bdVal,        // ISO format YYYY-MM-DD → sheet will use this
+    age:        age,          // pre-calculated for convenience
     troop:      document.getElementById('troop').value,
     rank:       document.getElementById('rank').value,
-    age:        document.getElementById('age').value,
     notes:      document.getElementById('notes').value.trim().substring(0, 1000),
     course:     c.name,
     dates:      c.dates,
@@ -940,36 +1051,32 @@ async function submitForm() {
     unchecked:  unchecked.length > 0 ? unchecked.join(' | ') : 'كل الشروط مؤكدة ✓',
   };
 
-  // Loading state
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
   btn.textContent = '⏳ جاري الإرسال...';
 
   try {
-    const res =await fetch(SHEET_URL, {
-  method: "POST",
-  body: JSON.stringify(payload),
-  headers: {
-    "Content-Type": "text/plain;charset=utf-8"
-  }
-});
+    const res = await fetch(SHEET_URL, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: { "Content-Type": "text/plain;charset=utf-8" }
+    });
 
     const result = await res.json();
-
-    if (result.status !== 'success') {
-      throw new Error(result.message || 'خطأ غير معروف');
-    }
+    if (result.status !== 'success') throw new Error(result.message || 'خطأ غير معروف');
 
   } catch (err) {
     btn.disabled = false;
     btn.textContent = '📨 إرسال التسجيل';
     showToast('❌ فشل الإرسال: ' + err.message, 'error');
-    return; // ← لا ننتقل لشاشة النجاح
+    return;
   }
 
   // ── Success ────────────────────────────────────────────────────────
   document.getElementById('success-summary').innerHTML = `
     <div class="summary-row"><span class="label">الاسم</span><span class="value">${esc(payload.fullname)}</span></div>
+    <div class="summary-row"><span class="label">تاريخ الميلاد</span><span class="value" style="direction:ltr;text-align:right">${esc(formatDateArabic(bdVal))}</span></div>
+    <div class="summary-row"><span class="label">العمر</span><span class="value">${esc(String(age))} سنة</span></div>
     <div class="summary-row"><span class="label">الدورة</span><span class="value">${esc(c.name)}</span></div>
     <div class="summary-row"><span class="label">التاريخ</span><span class="value">${esc(c.dates)}</span></div>
     <div class="summary-row"><span class="label">الاشتراك</span><span class="value">${esc(c.fee)}</span></div>
@@ -1001,8 +1108,9 @@ async function submitForm() {
 function resetForm() {
   selectedCourse = null;
   document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-  document.querySelectorAll('input[type="text"], input[type="tel"], input[type="number"], select, textarea')
+  document.querySelectorAll('input[type="text"], input[type="tel"], input[type="number"], input[type="date"], select, textarea')
     .forEach(el => el.value = '');
+  document.getElementById('age-display').classList.remove('visible');
   document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
   document.querySelectorAll('.req-box').forEach(b => b.classList.remove('show'));
   document.querySelectorAll('.error-msg').forEach(e => e.classList.remove('show'));
