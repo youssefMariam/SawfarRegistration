@@ -660,7 +660,7 @@
       <p class="error-msg" id="err-rank">⚠️ يرجى اختيار الرتبة.</p>
     </div>
     <div class="form-group">
-      <label>العمر باللغة الانجليزية <span class="req-star">*</span></label>
+      <label>العمر <span class="req-star">*</span></label>
       <input type="number" id="age" placeholder="يُحسب تلقائياً" min="10" max="80" readonly style="background:#F7F3EC;color:var(--muted);cursor:default">
       <p class="error-msg" id="err-age">⚠️ يرجى إدخال تاريخ الميلاد أولاً.</p>
     </div>
@@ -668,7 +668,7 @@
 
   <div class="form-group">
     <label>الاختصاص الكشفي (للقادة) أو ملاحظات إن وجد</label>
-    <textarea id="notes" rows="3" placeholder="أي ملاحظات أو معلومات إضافية... (1000 حرف كحد أقصى)" maxlength="1000"></textarea>
+    <textarea id="notes" rows="3" placeholder="أي ملاحظات أو معلومات إضافية... " maxlength="1000"></textarea>
   </div>
 
   <div class="btn-row">
@@ -882,7 +882,6 @@ function onBirthdateChange() {
 
   if (age !== null && age >= 10 && age <= 80) {
     ageInput.value = age;
-    ageDisplayText.textContent = 'عمرك ' + age + ' سنة';
     ageDisplay.classList.add('visible');
     document.getElementById('err-birthdate').classList.remove('show');
     document.getElementById('err-age').classList.remove('show');
